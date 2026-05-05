@@ -72,22 +72,22 @@ export default function ProjectInfoSection() {
           </p>
         </div>
 
-        <div className="bg-card border border-border rounded-2xl p-6 mb-12 max-w-4xl mx-auto hidden">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
-              <Target className="h-5 w-5 text-accent" />
-            </div>
-            <h3 className="font-inter font-bold text-lg text-foreground">Название проекта</h3>
-          </div>
-          <div className="space-y-4">
-            {NAMES.map((n) =>
-            <div key={n.label} className="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-4">
-                <span className="font-inter text-sm font-semibold text-muted-foreground shrink-0 sm:w-52">{n.label}</span>
-                <span className="font-inter text-sm text-foreground">{n.value}</span>
-              </div>
-            )}
-          </div>
-        </div>
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {GOALS.map((g) =>
