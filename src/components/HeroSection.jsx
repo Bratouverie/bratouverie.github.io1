@@ -89,7 +89,7 @@ export default function HeroSection({ onOpenApplication, heroImg, mapImg }) {
             <div className="text-xs sm:text-sm text-white/50 font-inter mt-1">подъёмные, ₽</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl sm:text-3xl font-mono font-bold text-white">260К</div>
+            <div className="text-2xl sm:text-3xl font-mono font-bold text-white">320К</div>
             <div className="text-xs sm:text-sm text-white/50 font-inter mt-1">в месяц, до ₽</div>
           </div>
           <div className="text-center">
