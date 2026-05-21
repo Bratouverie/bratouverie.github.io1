@@ -182,13 +182,29 @@ export default function ProjectStatusSection() {
                     <Phone className="h-4 w-4 text-accent" />
                     +7 919 107-22-44
                   </a>
+                  <a href="tel:+74996861317" className="flex items-center gap-3 text-sm font-inter text-foreground hover:text-accent transition-colors">
+                    <Phone className="h-4 w-4 text-accent" />
+                    +7 (499) 686-13-17
+                  </a>
+                  <a href="tel:+74212515930" className="flex items-center gap-3 text-sm font-inter text-foreground hover:text-accent transition-colors">
+                    <Phone className="h-4 w-4 text-accent" />
+                    +7 (4212) 51-59-30
+                  </a>
                   <a href="mailto:bratouverie@gmail.com" className="flex items-center gap-3 text-sm font-inter text-foreground hover:text-accent transition-colors">
                     <Mail className="h-4 w-4 text-accent" />
                     bratouverie@gmail.com
                   </a>
+                  <a href="mailto:contact@bratouverie.ru" className="flex items-center gap-3 text-sm font-inter text-foreground hover:text-accent transition-colors">
+                    <Mail className="h-4 w-4 text-accent" />
+                    contact@bratouverie.ru
+                  </a>
                   <div className="flex items-start gap-3 text-sm font-inter text-muted-foreground">
                     <MapPin className="h-4 w-4 text-accent shrink-0 mt-0.5" />
                     г. Хабаровск, ул. Карла Маркса, д. 66
+                  </div>
+                  <div className="flex items-start gap-3 text-sm font-inter text-muted-foreground">
+                    <MapPin className="h-4 w-4 text-accent shrink-0 mt-0.5" />
+                    г. Тамбов, ул. Коммунальная, 6 (Тамбовская область)
                   </div>
                 </div>
               </div>

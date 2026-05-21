@@ -57,6 +57,7 @@ export default function Footer() {
               <div>Ген. директор: Ануфриев Я.Е.</div>
               <div className="pt-1">Юр. адрес: Приморский край, г. Уссурийск, пер. Мирный, д. 1</div>
               <div>Факт. адрес: г. Хабаровск, ул. Карла Маркса, д. 66</div>
+              <div>Доп. офис: г. Тамбов, ул. Коммунальная, 6</div>
             </div>
           </div>
 
@@ -66,7 +67,10 @@ export default function Footer() {
             <div className="space-y-2 text-xs text-white/50 font-inter">
               <div><a href="tel:+79842620936" className="hover:text-white transition-colors">+7 984 262-09-36</a></div>
               <div><a href="tel:+79191072244" className="hover:text-white transition-colors">+7 919 107-22-44</a></div>
+              <div><a href="tel:+74996861317" className="hover:text-white transition-colors">+7 (499) 686-13-17</a></div>
+              <div><a href="tel:+74212515930" className="hover:text-white transition-colors">+7 (4212) 51-59-30</a></div>
               <div><a href="mailto:bratouverie@gmail.com" className="hover:text-white transition-colors">bratouverie@gmail.com</a></div>
+              <div><a href="mailto:contact@bratouverie.ru" className="hover:text-white transition-colors">contact@bratouverie.ru</a></div>
               <div className="pt-1">Часы работы: Пн–Пт 09:00–18:00</div>
               <div>Сб 10:00–14:00</div>
             </div>
@@ -103,6 +107,9 @@ export default function Footer() {
         <div className="mt-6 text-center space-y-2">
           <p className="text-xs text-white/30 font-inter">
             © {new Date().getFullYear()} Администрация города Хабаровска. Все права защищены.
+          </p>
+          <p className="text-xs text-white/30 font-inter">
+            <a href="https://vosstanovim-dnr.ru" className="hover:text-white transition-colors">https://vosstanovim-dnr.ru</a>
           </p>
           <a href="/privacy" className="text-xs text-white/40 hover:text-white font-inter transition-colors underline">
             Политика конфиденциальности

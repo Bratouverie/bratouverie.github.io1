@@ -1,4 +1,4 @@
-import { Phone, MapPin, MessageSquare } from "lucide-react";
+import { Phone, MapPin, MessageSquare, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function ContactsSection({ onCallback }) {
@@ -57,6 +57,19 @@ export default function ContactsSection({ onCallback }) {
           </div>
         </div>
 
+        {/* Additional contacts */}
+        <div className="flex flex-wrap justify-center gap-4 mb-8">
+          <a href="tel:+74996861317" className="flex items-center gap-2 bg-card border border-border rounded-lg px-4 py-3 hover:border-accent/30 transition-colors font-mono text-sm font-medium text-foreground">
+            <Phone className="h-4 w-4 text-accent" />+7 (499) 686-13-17
+          </a>
+          <a href="tel:+74212515930" className="flex items-center gap-2 bg-card border border-border rounded-lg px-4 py-3 hover:border-accent/30 transition-colors font-mono text-sm font-medium text-foreground">
+            <Phone className="h-4 w-4 text-accent" />+7 (4212) 51-59-30
+          </a>
+          <a href="mailto:contact@bratouverie.ru" className="flex items-center gap-2 bg-card border border-border rounded-lg px-4 py-3 hover:border-accent/30 transition-colors font-mono text-sm font-medium text-foreground">
+            <MapPin className="h-4 w-4 text-accent" />contact@bratouverie.ru
+          </a>
+        </div>
+
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
           <a
             href="https://max.ru"
@@ -78,11 +91,15 @@ export default function ContactsSection({ onCallback }) {
         </div>
 
         <div className="bg-card border border-border rounded-2xl overflow-hidden">
-          <div className="flex items-center gap-3 px-6 py-4 border-b border-border">
-            <MapPin className="h-5 w-5 text-accent" />
-            <span className="font-inter font-medium text-foreground">
-              г. Хабаровск, ул. Карла Маркса, д. 66
-            </span>
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 px-6 py-4 border-b border-border">
+            <div className="flex items-center gap-3">
+              <MapPin className="h-5 w-5 text-accent shrink-0" />
+              <span className="font-inter font-medium text-foreground">г. Хабаровск, ул. Карла Маркса, д. 66</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <MapPin className="h-5 w-5 text-accent shrink-0" />
+              <span className="font-inter font-medium text-foreground">г. Тамбов, ул. Коммунальная, 6</span>
+            </div>
           </div>
           <div className="h-64 sm:h-80 bg-muted">
             <iframe

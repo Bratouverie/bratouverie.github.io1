@@ -3,9 +3,9 @@ import { FileText, Phone, Stethoscope, PenTool, Plane } from "lucide-react";
 const STEPS = [
   { icon: FileText, num: "01", title: "Оставить заявку", desc: "Заполните форму на сайте или позвоните нам" },
   { icon: Phone, num: "02", title: "Собеседование", desc: "По телефону или через мессенджер «Макс»" },
-  { icon: Stethoscope, num: "03", title: "Медкомиссия", desc: "г. Хабаровск, ул. Карла Маркса, д. 66" },
+  { icon: Stethoscope, num: "03", title: "Медкомиссия", desc: "г. Хабаровск, ул. Карла Маркса, д. 66 или г. Тамбов, ул. Коммунальная, 6 (Тамбовская область)" },
   { icon: PenTool, num: "04", title: "Заключить контракт", desc: "Оформление документов и зачисление в программу" },
-  { icon: Plane, num: "05", title: "Отправка на вахту", desc: "Сбор в Хабаровске → отправка к месту работы" },
+  { icon: Plane, num: "05", title: "Отправка на вахту", desc: "Сбор в Хабаровске или Тамбове → отправка к месту работы" },
 ];
 
 export default function HowToJoinSection() {
