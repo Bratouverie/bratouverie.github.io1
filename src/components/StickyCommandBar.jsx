@@ -12,7 +12,7 @@ export default function StickyCommandBar({ onOpenApplication }) {
           <span className="hidden sm:inline">Позвонить</span>
         </a>
         <a
-          href="https://max.ru"
+          href="https://max.ru/u/f9LHodD0cOLnAxokVgBK1HcwEnGhlBy0W7dVL4IAt"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-4 py-2.5 rounded-lg font-inter text-sm font-medium transition-colors"
