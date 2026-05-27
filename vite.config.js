@@ -17,6 +17,7 @@ export default defineConfig({
   ],
   define: {
     'import.meta.env.VITE_BASE44_APP_ID': JSON.stringify('69f4a665db2c72a42818d397'),
-    'import.meta.env.VITE_BASE44_APP_BASE_URL': JSON.stringify('https://my-to-do-list-81bfaad7.base44.app')
+    'import.meta.env.VITE_BASE44_APP_BASE_URL': JSON.stringify('https://my-to-do-list-81bfaad7.base44.app'),
+    'process.env.PUBLIC_URL': JSON.stringify('/DNR')
   }
 });
