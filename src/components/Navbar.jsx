@@ -31,7 +31,7 @@ export default function Navbar({ onOpenApplication }) {
               className="h-10 w-10 object-contain"
             />
             <span className="text-white font-inter font-bold text-sm sm:text-base tracking-tight leading-tight">
-              Правительство<br className="sm:hidden" /> РФ
+              Программа<br className="sm:hidden" /> Правительства РФ
             </span>
           </div>
 
