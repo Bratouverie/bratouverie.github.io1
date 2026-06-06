@@ -1,7 +1,9 @@
 import { useParams, Link } from "react-router-dom";
-import { ArrowLeft, Clock, Tag, Phone } from "lucide-react";
+import { ArrowLeft, Clock, Tag, Phone, ChevronRight, Calendar, User, TrendingUp } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { BLOG_ARTICLES } from "@/lib/blogData";
+import ArticleChart from "@/components/blog/ArticleChart";
+import ArticleTimeline from "@/components/blog/ArticleTimeline";
 
 export default function BlogArticle() {
   const { slug } = useParams();
@@ -16,112 +18,257 @@ export default function BlogArticle() {
     );
   }
 
-  const related = BLOG_ARTICLES.filter((a) => a.id !== article.id && a.category === article.category).slice(0, 2);
+  const related = BLOG_ARTICLES.filter((a) => a.id !== article.id).slice(0, 3);
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <div className="bg-primary pt-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <Link
-            to="/blog"
-            className="inline-flex items-center gap-2 text-white/60 hover:text-white font-inter text-sm mb-8 transition-colors"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Все статьи
-          </Link>
-          <div className="flex items-center gap-3 mb-4 flex-wrap">
-            <span className="flex items-center gap-1 text-xs font-mono text-accent font-semibold bg-accent/20 px-2 py-0.5 rounded-full">
+      {/* Hero */}
+      <div className="relative bg-primary pt-16 overflow-hidden">
+        {article.image && (
+          <div
+            className="absolute inset-0 bg-cover bg-center opacity-15"
+            style={{ backgroundImage: `url(${article.image})` }}
+          />
+        )}
+        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          {/* Breadcrumb */}
+          <nav className="flex items-center gap-1.5 text-white/40 text-xs font-inter mb-8">
+            <Link to="/" className="hover:text-white transition-colors">Главная</Link>
+            <ChevronRight className="h-3 w-3" />
+            <Link to="/blog" className="hover:text-white transition-colors">Блог</Link>
+            <ChevronRight className="h-3 w-3" />
+            <span className="text-white/60 truncate max-w-[200px]">{article.title}</span>
+          </nav>
+
+          <div className="flex items-center gap-3 mb-5 flex-wrap">
+            <span className="flex items-center gap-1.5 text-xs font-mono text-accent font-semibold bg-accent/20 px-3 py-1 rounded-full">
               <Tag className="h-3 w-3" />
               {article.category}
             </span>
-            <span className="flex items-center gap-1 text-xs text-white/50 font-inter">
+            <span className="flex items-center gap-1.5 text-xs text-white/50 font-inter">
               <Clock className="h-3 w-3" />
-              {article.readTime}
+              {article.readTime} чтения
             </span>
-            <span className="text-xs text-white/40 font-inter">
+            <span className="flex items-center gap-1.5 text-xs text-white/40 font-inter">
+              <Calendar className="h-3 w-3" />
               {new Date(article.date).toLocaleDateString("ru-RU", { day: "numeric", month: "long", year: "numeric" })}
             </span>
           </div>
-          <h1 className="text-2xl sm:text-4xl font-inter font-black text-white tracking-tight leading-tight">
+
+          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-inter font-black text-white tracking-tight leading-tight max-w-4xl mb-4">
             {article.title}
           </h1>
+          <p className="text-white/70 font-inter text-base max-w-3xl leading-relaxed">
+            {article.description}
+          </p>
         </div>
       </div>
 
-      {/* Content */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid lg:grid-cols-3 gap-8">
-          <article className="lg:col-span-2">
-            <div className="prose prose-slate max-w-none
-              prose-headings:font-inter prose-headings:font-bold prose-headings:text-foreground
-              prose-h2:text-2xl prose-h2:mt-8 prose-h2:mb-4
-              prose-h3:text-lg prose-h3:mt-6 prose-h3:mb-3
-              prose-p:text-muted-foreground prose-p:leading-relaxed prose-p:font-inter prose-p:text-sm
-              prose-li:text-muted-foreground prose-li:font-inter prose-li:text-sm
-              prose-strong:text-foreground prose-strong:font-semibold
-              prose-table:text-sm prose-th:font-semibold prose-th:text-foreground prose-td:text-muted-foreground
-              prose-table:border prose-th:border prose-td:border prose-th:px-3 prose-th:py-2 prose-td:px-3 prose-td:py-2
-            ">
-              <ReactMarkdown>{article.content}</ReactMarkdown>
+      {/* Hero image strip */}
+      {article.image && (
+        <div className="w-full h-56 sm:h-72 overflow-hidden">
+          <img
+            src={article.image}
+            alt={article.title}
+            className="w-full h-full object-cover"
+          />
+        </div>
+      )}
+
+      {/* Body */}
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid lg:grid-cols-3 gap-10">
+
+          {/* Main content */}
+          <article className="lg:col-span-2 space-y-10">
+
+            {/* Chart / infographic block */}
+            {article.chartData && article.chartData.type !== "timeline" && (
+              <ArticleChart data={article.chartData} />
+            )}
+
+            {/* Timeline chart */}
+            {article.chartData && article.chartData.type === "timeline" && (
+              <ArticleTimeline data={article.chartData} />
+            )}
+
+            {/* Article text */}
+            <div className="prose-custom">
+              <ReactMarkdown
+                components={{
+                  h2: ({ children }) => (
+                    <h2 className="text-xl sm:text-2xl font-inter font-black text-foreground mt-10 mb-4 pb-2 border-b border-border">
+                      {children}
+                    </h2>
+                  ),
+                  h3: ({ children }) => (
+                    <h3 className="text-base sm:text-lg font-inter font-bold text-foreground mt-7 mb-3">
+                      {children}
+                    </h3>
+                  ),
+                  p: ({ children }) => (
+                    <p className="font-inter text-sm sm:text-base text-muted-foreground leading-relaxed mb-4">
+                      {children}
+                    </p>
+                  ),
+                  ul: ({ children }) => (
+                    <ul className="space-y-2 mb-5 ml-1">{children}</ul>
+                  ),
+                  ol: ({ children }) => (
+                    <ol className="space-y-2 mb-5 ml-1 list-decimal list-inside">{children}</ol>
+                  ),
+                  li: ({ children }) => (
+                    <li className="flex items-start gap-2 font-inter text-sm text-muted-foreground">
+                      <span className="text-accent shrink-0 mt-1 font-bold">•</span>
+                      <span>{children}</span>
+                    </li>
+                  ),
+                  strong: ({ children }) => (
+                    <strong className="font-bold text-foreground">{children}</strong>
+                  ),
+                  blockquote: ({ children }) => (
+                    <blockquote className="border-l-4 border-accent bg-accent/5 px-5 py-4 rounded-r-xl my-6 italic font-inter text-sm text-foreground/80 leading-relaxed">
+                      {children}
+                    </blockquote>
+                  ),
+                  table: ({ children }) => (
+                    <div className="overflow-x-auto my-6 rounded-xl border border-border">
+                      <table className="w-full text-sm font-inter">{children}</table>
+                    </div>
+                  ),
+                  thead: ({ children }) => (
+                    <thead className="bg-primary text-primary-foreground">{children}</thead>
+                  ),
+                  th: ({ children }) => (
+                    <th className="px-4 py-3 text-left font-semibold text-xs uppercase tracking-wider">{children}</th>
+                  ),
+                  td: ({ children }) => (
+                    <td className="px-4 py-3 border-t border-border text-muted-foreground">{children}</td>
+                  ),
+                  tr: ({ children }) => (
+                    <tr className="hover:bg-secondary/50 transition-colors">{children}</tr>
+                  ),
+                  a: ({ children, href }) => (
+                    <a href={href} className="text-accent underline hover:no-underline" target="_blank" rel="noopener noreferrer">{children}</a>
+                  ),
+                  code: ({ children }) => (
+                    <code className="bg-secondary px-1.5 py-0.5 rounded text-xs font-mono text-foreground">{children}</code>
+                  ),
+                }}
+              >
+                {article.content}
+              </ReactMarkdown>
+            </div>
+
+            {/* Tags */}
+            <div className="pt-6 border-t border-border">
+              <div className="flex flex-wrap gap-2">
+                {article.keywords.map((kw) => (
+                  <span key={kw} className="text-xs font-inter text-muted-foreground bg-secondary px-3 py-1.5 rounded-full hover:bg-secondary/80 transition-colors">
+                    #{kw.replace(/\s+/g, "_")}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Author / source block */}
+            <div className="bg-card border border-border rounded-2xl p-5 flex items-start gap-4">
+              <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center shrink-0">
+                <User className="h-6 w-6 text-accent" />
+              </div>
+              <div>
+                <div className="font-inter font-bold text-sm text-foreground mb-1">Редакция vosstanovim-dnr.ru</div>
+                <p className="font-inter text-xs text-muted-foreground leading-relaxed">
+                  Материал подготовлен на основе официальных данных программы восстановления ЛНР и ДНР.
+                  Актуализирован {new Date(article.date).toLocaleDateString("ru-RU", { month: "long", year: "numeric" })}.
+                </p>
+              </div>
             </div>
           </article>
 
           {/* Sidebar */}
           <aside className="space-y-5">
-            {/* CTA */}
+            {/* Sticky CTA */}
             <div className="bg-primary text-primary-foreground rounded-2xl p-5 sticky top-20">
-              <h3 className="font-inter font-bold mb-2">Хотите участвовать?</h3>
-              <p className="font-inter text-sm text-white/70 mb-4 leading-relaxed">
-                Зарплата от 300 000 ₽/мес + подъёмные 2 500 000 ₽. Звоните бесплатно!
-              </p>
+              <div className="flex items-center gap-2 mb-3">
+                <TrendingUp className="h-5 w-5 text-accent" />
+                <h3 className="font-inter font-bold text-base">Хотите участвовать?</h3>
+              </div>
+              <div className="space-y-2 mb-4">
+                <div className="flex justify-between text-xs font-inter">
+                  <span className="text-white/60">Зарплата от</span>
+                  <span className="font-bold text-accent">300 000 ₽/мес</span>
+                </div>
+                <div className="flex justify-between text-xs font-inter">
+                  <span className="text-white/60">Подъёмные</span>
+                  <span className="font-bold text-accent">2 500 000 ₽</span>
+                </div>
+                <div className="flex justify-between text-xs font-inter">
+                  <span className="text-white/60">Страховка</span>
+                  <span className="font-bold text-white">до 14,7 млн ₽</span>
+                </div>
+                <div className="flex justify-between text-xs font-inter">
+                  <span className="text-white/60">Жильё и питание</span>
+                  <span className="font-bold text-white">Бесплатно</span>
+                </div>
+              </div>
               <a
                 href="tel:88002228463"
-                className="flex items-center justify-center gap-2 w-full bg-accent hover:bg-accent/90 text-accent-foreground font-inter font-bold py-3 rounded-xl transition-colors text-sm"
+                className="flex items-center justify-center gap-2 w-full bg-accent hover:bg-accent/90 text-accent-foreground font-inter font-bold py-3 rounded-xl transition-colors text-sm mb-2"
               >
                 <Phone className="h-4 w-4" />
                 8-800-222-84-63
               </a>
               <Link
-                to="/#vacancies"
-                className="flex items-center justify-center w-full mt-2 bg-white/10 hover:bg-white/20 text-white font-inter font-semibold py-3 rounded-xl transition-colors text-sm"
+                to="/"
+                className="flex items-center justify-center w-full bg-white/10 hover:bg-white/20 text-white font-inter font-semibold py-3 rounded-xl transition-colors text-sm"
               >
-                Смотреть вакансии
+                Оставить заявку онлайн
               </Link>
             </div>
 
-            {/* Related */}
+            {/* Key facts */}
+            <div className="bg-card border border-border rounded-2xl p-5">
+              <h3 className="font-inter font-bold text-foreground mb-4 text-sm">📌 Ключевые факты</h3>
+              <div className="space-y-3">
+                {[
+                  { label: "Срок вахты", value: "1 год" },
+                  { label: "Место работы", value: "Мариуполь, Луганск, Макеевка, Алчевск" },
+                  { label: "Формат занятости", value: "Официальный трудовой договор" },
+                  { label: "Выплата зарплаты", value: "2 раза в месяц" },
+                  { label: "Страховое покрытие", value: "До 14 700 000 ₽" },
+                ].map((f) => (
+                  <div key={f.label} className="flex flex-col gap-0.5">
+                    <span className="text-xs text-muted-foreground font-inter">{f.label}</span>
+                    <span className="text-sm font-inter font-semibold text-foreground">{f.value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Related articles */}
             {related.length > 0 && (
               <div className="bg-card border border-border rounded-2xl p-5">
                 <h3 className="font-inter font-bold text-foreground mb-4 text-sm">Читайте также</h3>
-                <div className="space-y-3">
+                <div className="space-y-4">
                   {related.map((r) => (
-                    <Link
-                      key={r.id}
-                      to={`/blog/${r.slug}`}
-                      className="block group"
-                    >
-                      <p className="font-inter text-sm text-foreground group-hover:text-accent transition-colors leading-snug">
+                    <Link key={r.id} to={`/blog/${r.slug}`} className="block group">
+                      {r.image && (
+                        <div className="w-full h-24 rounded-lg overflow-hidden mb-2">
+                          <img src={r.image} alt={r.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                        </div>
+                      )}
+                      <p className="font-inter text-sm text-foreground group-hover:text-accent transition-colors leading-snug font-medium">
                         {r.title}
                       </p>
-                      <span className="font-inter text-xs text-muted-foreground">{r.readTime}</span>
+                      <span className="font-inter text-xs text-muted-foreground flex items-center gap-1 mt-1">
+                        <Clock className="h-3 w-3" />{r.readTime}
+                      </span>
                     </Link>
                   ))}
                 </div>
               </div>
             )}
-
-            {/* Keywords */}
-            <div className="bg-card border border-border rounded-2xl p-5">
-              <h3 className="font-inter font-bold text-foreground mb-3 text-sm">Темы</h3>
-              <div className="flex flex-wrap gap-2">
-                {article.keywords.map((kw) => (
-                  <span key={kw} className="text-xs font-inter text-muted-foreground bg-secondary px-2 py-1 rounded-full">
-                    {kw}
-                  </span>
-                ))}
-              </div>
-            </div>
           </aside>
         </div>
       </div>
