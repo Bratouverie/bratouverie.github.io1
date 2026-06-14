@@ -2,8 +2,11 @@ import { Link } from "react-router-dom";
 import { ArrowLeft, Download, FileText } from "lucide-react";
 
 const COMPANY = "ООО «Братоуверие-СНБ»";
-const INN = "9723174182";
-const ADDRESS = "г. Москва, ул. Пример, д. 1";
+const INN = "2511135442";
+const KPP = "251101001";
+const OGRN = "1262500006966";
+const ADDRESS = "692510, Приморский край, г. о. Уссурийский, г. Уссурийск, пер. Мирный, д. 1";
+const EMAIL = "support@vosstanovim-dnr.ru";
 const DATE = "01.01.2024";
 
 export const CONSENT_TEXT = {
@@ -31,7 +34,7 @@ export const CONSENT_TEXT = {
     },
     {
       heading: "5. Порядок отзыва согласия",
-      text: `Субъект вправе в любой момент отозвать настоящее согласие, направив письменное уведомление Оператору по адресу: ${ADDRESS}, либо на электронную почту info@vosstanovim-dnr.ru. После получения уведомления Оператор прекращает обработку персональных данных Субъекта в срок, не превышающий 30 (тридцати) рабочих дней.`,
+      text: `Субъект вправе в любой момент отозвать настоящее согласие, направив письменное уведомление Оператору по адресу: ${ADDRESS}, либо на электронную почту ${EMAIL}. После получения уведомления Оператор прекращает обработку персональных данных Субъекта в срок, не превышающий 30 (тридцати) рабочих дней.`,
     },
     {
       heading: "6. Передача третьим лицам",
@@ -45,7 +48,10 @@ export const CONSENT_TEXT = {
   signature: {
     company: COMPANY,
     inn: INN,
+    kpp: KPP,
+    ogrn: OGRN,
     address: ADDRESS,
+    email: EMAIL,
     date: DATE,
   },
 };
@@ -187,8 +193,9 @@ export default function ConsentPage() {
             {/* Operator details */}
             <div className="mt-8 pt-6 border-t border-gray-200 space-y-1 text-[14px]">
               <p><span className="font-semibold">Оператор:</span> {CONSENT_TEXT.signature.company}</p>
-              <p><span className="font-semibold">ИНН:</span> {CONSENT_TEXT.signature.inn}</p>
+              <p><span className="font-semibold">ИНН:</span> {CONSENT_TEXT.signature.inn} &nbsp;<span className="font-semibold">КПП:</span> {CONSENT_TEXT.signature.kpp} &nbsp;<span className="font-semibold">ОГРН:</span> {CONSENT_TEXT.signature.ogrn}</p>
               <p><span className="font-semibold">Адрес:</span> {CONSENT_TEXT.signature.address}</p>
+              <p><span className="font-semibold">E-mail:</span> {CONSENT_TEXT.signature.email}</p>
             </div>
 
             {/* Signature block */}
