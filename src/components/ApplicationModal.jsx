@@ -141,7 +141,10 @@ export default function ApplicationModal({ open, onClose, preselectedVacancy }) 
                   id="consent"
                 />
                 <Label htmlFor="consent" className="text-sm text-muted-foreground font-inter leading-snug cursor-pointer">
-                  Согласен на обработку персональных данных
+                  Согласен на{" "}
+                  <a href="/consent" target="_blank" className="text-accent underline hover:no-underline">
+                    обработку персональных данных
+                  </a>
                 </Label>
               </div>
               <Button

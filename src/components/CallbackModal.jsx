@@ -71,7 +71,10 @@ export default function CallbackModal({ open, onClose }) {
                   id="consent-cb"
                 />
                 <Label htmlFor="consent-cb" className="text-sm text-muted-foreground font-inter leading-snug cursor-pointer">
-                  Согласен на обработку персональных данных
+                  Согласен на{" "}
+                  <a href="/consent" target="_blank" className="text-accent underline hover:no-underline">
+                    обработку персональных данных
+                  </a>
                 </Label>
               </div>
               <Button
