@@ -237,7 +237,7 @@ export default function BlogArticle() {
               <h3 className="font-inter font-bold text-foreground mb-4 text-sm">📌 Ключевые факты</h3>
               <div className="space-y-3">
                 {[
-                  { label: "Срок вахты", value: "1 год" },
+                  { label: "Срок вахты", value: "3 мес." },
                   { label: "Место работы", value: "Мариуполь, Луганск, Макеевка, Алчевск" },
                   { label: "Формат занятости", value: "Официальный трудовой договор" },
                   { label: "Выплата зарплаты", value: "2 раза в месяц" },
