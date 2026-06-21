@@ -2,31 +2,31 @@ import { useState } from "react";
 import { Calculator, TrendingUp, Info } from "lucide-react";
 
 const VACANCIES = [
-  { label: "Разнорабочий", salary: 320000 },
-  { label: "Строитель", salary: 355000 },
-  { label: "Водитель кат. B", salary: 320000 },
-  { label: "Водитель кат. C", salary: 335000 },
-  { label: "Водитель кат. CE", salary: 345000 },
-  { label: "Автослесарь", salary: 340000 },
-  { label: "Охранник", salary: 330000 },
-  { label: "Медработник", salary: 360000 },
-  { label: "Инженер связи", salary: 375000 },
-  { label: "Оператор БПЛА", salary: 380000 },
-  { label: "Взрывотехник", salary: 445000 },
+  { label: "Разнорабочий", salary: 80000 },
+  { label: "Строитель", salary: 88750 },
+  { label: "Водитель кат. B", salary: 80000 },
+  { label: "Водитель кат. C", salary: 83750 },
+  { label: "Водитель кат. CE", salary: 86250 },
+  { label: "Автослесарь", salary: 85000 },
+  { label: "Охранник", salary: 82500 },
+  { label: "Медработник", salary: 90000 },
+  { label: "Инженер связи", salary: 93750 },
+  { label: "Оператор БПЛА", salary: 95000 },
+  { label: "Взрывотехник", salary: 111250 },
 ];
 
 const fmt = (n) => n.toLocaleString("ru-RU") + " ₽";
 
 export default function SalaryCalculator() {
   const [vacancyIdx, setVacancyIdx] = useState(1);
-  const [months, setMonths] = useState(12);
+  const [months, setMonths] = useState(3);
   const [withBonus, setWithBonus] = useState(true);
 
   const vac = VACANCIES[vacancyIdx];
   const salary = vac.salary;
   const totalSalary = salary * months;
   const bonuses = withBonus ? Math.round(salary * 0.05 * months) : 0;
-  const podyomnye = 2500000;
+  const podyomnye = months === 3 ? 625000 : 625000 * (months / 3);
   const gross = totalSalary + bonuses + podyomnye;
   const net = Math.round(gross * 0.87);
   const saved = Math.round((25000 + 18000 + 15000) * months); // жильё+еда+проезд
@@ -40,7 +40,7 @@ export default function SalaryCalculator() {
             Рассчитайте свой доход
           </h2>
           <p className="text-muted-foreground font-inter mt-3 max-w-xl mx-auto text-sm">
-            Выберите специальность и срок — узнайте точную сумму дохода за вахту
+            Выберите специальность и срок (начиная с 3 месяцев) — узнайте точный доход за вахту(ы)
           </p>
         </div>
 
@@ -69,13 +69,13 @@ export default function SalaryCalculator() {
                   type="range"
                   min={3}
                   max={12}
-                  step={1}
+                  step={3}
                   value={months}
                   onChange={(e) => setMonths(Number(e.target.value))}
                   className="w-full accent-accent"
                 />
                 <div className="flex justify-between text-xs text-muted-foreground font-inter mt-1">
-                  <span>3 мес.</span><span>6 мес.</span><span>9 мес.</span><span>12 мес.</span>
+                  <span>3 мес (1 вахта)</span><span>6 мес (2)</span><span>9 мес (3)</span><span>12 мес (4)</span>
                 </div>
               </div>
 
@@ -96,7 +96,7 @@ export default function SalaryCalculator() {
                 <div className="flex items-start gap-2">
                   <Info className="h-4 w-4 text-accent shrink-0 mt-0.5" />
                   <p className="font-inter text-xs text-muted-foreground leading-relaxed">
-                    Подъёмные <strong className="text-foreground">2 500 000 ₽</strong> выплачиваются всем участникам при подписании договора в течение 5 рабочих дней.
+                    Подъёмные <strong className="text-foreground">625 000 ₽ за каждую 3-месячную вахту</strong> выплачиваются при подписании договора в течение 5 рабочих дней.
                   </p>
                 </div>
               </div>
