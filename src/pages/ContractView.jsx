@@ -113,7 +113,7 @@ export default function ContractView() {
             {/* 2. Предмет договора */}
             <ContractSection num="2" title="ПРЕДМЕТ И УСЛОВИЯ ДОГОВОРА">
               <SubSection title="2.1 Должность и трудовые функции">
-                <p>Работник принимается на должность <strong>{extra.fullTitle}</strong> на период одной календарной вахты продолжительностью {CONTRACT_COMMON.vacancyDays} дней (далее — «вахтовая смена»). Ориентировочное начало вахты: <strong>{CONTRACT_COMMON.vacancyStart}</strong> (в зависимости от формирования группы). Срок вахты: 1 год.</p>
+                <p>Работник принимается на должность <strong>{extra.fullTitle}</strong> на период одной календарной вахты продолжительностью {CONTRACT_COMMON.vacancyDays} дней (далее — «вахтовая смена»). Ориентировочное начало вахты: <strong>{CONTRACT_COMMON.vacancyStart}</strong> (в зависимости от формирования группы). Срок вахты: 3 месяца.</p>
               </SubSection>
 
               <SubSection title="2.2 Основные трудовые обязанности">
