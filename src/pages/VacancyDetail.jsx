@@ -4,6 +4,7 @@ import { ArrowLeft, Banknote, Calendar, MapPin, Users, Shield, GraduationCap, Tr
 import { Button } from "@/components/ui/button";
 import { VACANCIES_DATA } from "@/lib/vacanciesData";
 import ApplicationModal from "../components/ApplicationModal";
+import ContractDownloadButton from "../components/ContractDownloadButton";
 
 export default function VacancyDetail() {
   const { id } = useParams();
@@ -241,11 +242,12 @@ export default function VacancyDetail() {
               </p>
               <Link
                 to={`/contract/${vacancy.id}`}
-                className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-primary text-primary-foreground font-inter font-semibold text-xs hover:bg-primary/90 transition-colors"
+                className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-primary text-primary-foreground font-inter font-semibold text-xs hover:bg-primary/90 transition-colors mb-2.5"
               >
                 <Download className="h-3.5 w-3.5" />
-                Договор (ознакомительный)
+                Просмотреть договор
               </Link>
+              <ContractDownloadButton vacancyId={vacancy.id} />
             </div>
 
             {/* Prospects */}
