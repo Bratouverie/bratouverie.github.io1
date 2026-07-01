@@ -10,26 +10,92 @@ import { base44 } from "@/api/base44Client";
 import { buildContractBlocks } from "@/lib/contractBuilder";
 import { VACANCIES_DATA } from "@/lib/vacanciesData";
 
+function buildContractHtml(data) {
+  let html = "";
+  html += `<h1 style="text-align:center;font-size:20pt;font-weight:bold;margin-bottom:8px;">${data.title}</h1>`;
+  if (data.subtitle) {
+    html += `<h2 style="text-align:center;font-size:14pt;font-weight:bold;margin-bottom:20px;">${data.subtitle}</h2>`;
+  }
+  for (const block of data.blocks) {
+    switch (block.type) {
+      case "heading":
+        html += `<h3 style="font-size:12pt;font-weight:bold;margin-top:18px;margin-bottom:8px;border-bottom:1px solid #999;padding-bottom:3px;">${block.text}</h3>`;
+        break;
+      case "subheading":
+        html += `<h4 style="font-size:11pt;font-weight:bold;margin-top:12px;margin-bottom:6px;">${block.text}</h4>`;
+        break;
+      case "paragraph":
+        html += `<p style="font-size:10pt;text-align:justify;margin-bottom:6px;line-height:1.5;">${block.text}</p>`;
+        break;
+      case "bullets":
+        html += `<ul style="font-size:10pt;margin-bottom:8px;padding-left:20px;line-height:1.5;">${block.items.map(i => `<li style="margin-bottom:3px;">${i}</li>`).join("")}</ul>`;
+        break;
+      case "table":
+        html += `<table style="width:100%;border-collapse:collapse;font-size:9pt;margin-bottom:12px;">`;
+        if (block.headers) {
+          html += `<thead><tr>${block.headers.map(h => `<th style="border:1px solid #999;padding:5px;background:#e8e8e8;font-weight:bold;">${h}</th>`).join("")}</tr></thead>`;
+        }
+        html += `<tbody>`;
+        for (const row of (block.rows || [])) {
+          const cells = Array.isArray(row) ? row : [row];
+          html += `<tr>${cells.map(c => `<td style="border:1px solid #999;padding:5px;">${c}</td>`).join("")}</tr>`;
+        }
+        html += `</tbody></table>`;
+        break;
+    }
+  }
+  return html;
+}
+
 export default function ContractDownloadButton({ vacancyId }) {
   const [loading, setLoading] = useState(null);
 
   const handlePdf = async () => {
     setLoading("pdf");
     try {
+      const contractData = buildContractBlocks(vacancyId);
+      if (!contractData) throw new Error("Данные договора не найдены");
+
+      const { default: html2canvas } = await import("html2canvas");
+      const { jsPDF } = await import("jspdf");
+
+      const div = document.createElement("div");
+      div.style.position = "absolute";
+      div.style.left = "-9999px";
+      div.style.top = "0";
+      div.style.width = "794px";
+      div.style.padding = "40px";
+      div.style.background = "white";
+      div.style.fontFamily = "'Times New Roman', Times, serif";
+      div.style.color = "#222";
+      div.innerHTML = buildContractHtml(contractData);
+      document.body.appendChild(div);
+
+      const canvas = await html2canvas(div, { scale: 2, useCORS: true });
+      document.body.removeChild(div);
+
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("p", "mm", "a4");
+      const imgWidth = 210;
+      const pageHeight = 297;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      let heightLeft = imgHeight;
+      let position = 0;
+
+      pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft > 0) {
+        position -= pageHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+
       const vacancy = VACANCIES_DATA.find((v) => v.id === vacancyId);
-      if (!vacancy?.contractUrl) throw new Error("PDF не найден");
-      const res = await fetch(vacancy.contractUrl);
-      const blob = await res.blob();
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `Договор_${vacancy.title}.pdf`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    } catch {
-      alert("Не удалось скачать PDF. Попробуйте позже.");
+      pdf.save(`Договор_${vacancy?.title || "договор"}.pdf`);
+    } catch (e) {
+      alert("Не удалось создать PDF: " + (e?.message || "ошибка"));
     } finally {
       setLoading(null);
     }
@@ -59,8 +125,8 @@ export default function ContractDownloadButton({ vacancyId }) {
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
-    } catch {
-      alert("Не удалось создать DOCX. Попробуйте позже.");
+    } catch (e) {
+      alert("Не удалось создать DOCX: " + (e?.message || "ошибка"));
     } finally {
       setLoading(null);
     }

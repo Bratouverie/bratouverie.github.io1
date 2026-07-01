@@ -1,7 +1,7 @@
 import {
   Document, Packer, Paragraph, TextRun,
   Table, TableRow, TableCell, WidthType,
-  AlignmentType, BorderStyle,
+  AlignmentType,
 } from 'npm:docx@8.5.0';
 
 Deno.serve(async (req) => {
@@ -30,7 +30,6 @@ Deno.serve(async (req) => {
           children.push(new Paragraph({
             children: [new TextRun({ text: block.text, bold: true, size: 24 })],
             spacing: { before: 300, after: 150 },
-            border: { bottom: { color: '999999', space: 1, style: BorderStyle.SINGLE, size: 6 } },
           }));
           break;
         case 'subheading':
@@ -49,8 +48,10 @@ Deno.serve(async (req) => {
         case 'bullets':
           for (const item of block.items) {
             children.push(new Paragraph({
-              bullet: { level: 0 },
-              children: [new TextRun({ text: item, size: 22 })],
+              children: [
+                new TextRun({ text: "• ", size: 22 }),
+                new TextRun({ text: item, size: 22 }),
+              ],
               spacing: { after: 50 },
             }));
           }
