@@ -7,41 +7,47 @@ const GOV_LOGO = "https://media.base44.com/images/public/69f4a665db2c72a42818d39
 
 const NAV_GROUPS = [
   {
-    label: "О программе",
+    label: "Доход",
     items: [
-      { label: "О программе", href: "#about" },
-      { label: "Как устроена программа", href: "#mechanism" },
-      { label: "Статус проекта", href: "#status" },
-      { label: "Сроки и этапы", href: "#timeline" },
-      { label: "География", href: "#geography" },
+      { label: "Калькулятор дохода", href: "#calculator" },
+      { label: "Вакансии", href: "#vacancies" },
+      { label: "Льготы", href: "#benefits" },
     ],
   },
   {
-    label: "Вакансии",
+    label: "Процесс",
     items: [
-      { label: "Все вакансии", href: "#vacancies" },
-      { label: "Условия труда", href: "#conditions" },
-      { label: "Оплата труда", href: "#payment" },
-      { label: "Как вступить", href: "#how-to-join" },
+      { label: "10 шагов отбора", href: "#process" },
+      { label: "Точки сбора", href: "#collection-points" },
+      { label: "Медкомиссия", href: "#medical" },
+      { label: "Документы", href: "#documents" },
     ],
   },
   {
-    label: "Поддержка",
+    label: "Безопасность",
     items: [
-      { label: "Льготы и программы", href: "#benefits" },
-      { label: "Безопасность", href: "#safety" },
+      { label: "Три уровня защиты", href: "#safety" },
+      { label: "Честно о рисках", href: "#risks" },
+      { label: "Не контракт с МО", href: "#not-military" },
+      { label: "Отдых в городах", href: "#rest-cities" },
+    ],
+  },
+  {
+    label: "О нас",
+    items: [
+      { label: "О компании", href: "#about-company" },
+      { label: "Руководство", href: "#leadership" },
+      { label: "Объекты", href: "#objects" },
+      { label: "День специалиста", href: "#day-of-specialist" },
       { label: "Отзывы", href: "#testimonials" },
-      { label: "Фотогалерея", href: "#gallery" },
     ],
   },
   {
     label: "Информация",
     items: [
-    { label: "Документы", href: "#documents" },
-    { label: "FAQ", href: "#faq" },
-    { label: "Юридическая информация", href: "#legal" },
-    { label: "Контакты", href: "#contacts" },
-    { label: "Блог", href: "/blog", external: true },
+      { label: "FAQ", href: "#faq" },
+      { label: "Контакты", href: "#contacts" },
+      { label: "Блог", href: "/blog", external: true },
     ],
   },
 ];
@@ -119,10 +125,10 @@ export default function Navbar({ onOpenApplication }) {
             />
             <div className="flex flex-col leading-tight">
               <span className="text-white font-inter font-bold text-sm tracking-tight">
-                Правительство РФ
+                Восстановление ДНР и ЛНР
               </span>
               <span className="text-white/50 font-inter text-[10px] font-normal tracking-wide">
-                Программа восстановления
+                Программа трудоустройства
               </span>
             </div>
           </div>

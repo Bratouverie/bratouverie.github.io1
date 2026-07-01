@@ -1,105 +1,130 @@
-import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useState } from "react";
 import Navbar from "../components/Navbar";
 import HeroSection from "../components/HeroSection";
-import AboutSection from "../components/AboutSection";
+import SalaryCalculator from "../components/SalaryCalculator";
 import VacanciesSection from "../components/VacanciesSection";
-import ConditionsSection from "../components/ConditionsSection";
-import PaymentSection from "../components/PaymentSection";
-import HowToJoinSection from "../components/HowToJoinSection";
+import DayOfSpecialist from "../components/DayOfSpecialist";
+import TestimonialsSection from "../components/TestimonialsSection";
+import RecoveryObjects from "../components/RecoveryObjects";
+import NotMilitaryContract from "../components/NotMilitaryContract";
+import ProcessSection from "../components/ProcessSection";
+import CollectionPoints from "../components/CollectionPoints";
+import MedicalCommission from "../components/MedicalCommission";
+import SafetySection from "../components/SafetySection";
+import HonestRisks from "../components/HonestRisks";
+import RestCities from "../components/RestCities";
+import BenefitsSection from "../components/BenefitsSection";
+import DocumentsSection from "../components/DocumentsSection";
+import AboutCompany from "../components/AboutCompany";
+import CompanyLeadership from "../components/CompanyLeadership";
+import FaqSection from "../components/FaqSection";
+import FinalCTA from "../components/FinalCTA";
+import ProjectInfoSection from "../components/ProjectInfoSection";
+import ProjectStatusSection from "../components/ProjectStatusSection";
+import PhotoGallerySection from "../components/PhotoGallerySection";
 import ContactsSection from "../components/ContactsSection";
 import Footer from "../components/Footer";
 import ApplicationModal from "../components/ApplicationModal";
 import CallbackModal from "../components/CallbackModal";
 import StickyCommandBar from "../components/StickyCommandBar";
-import ProjectInfoSection from "../components/ProjectInfoSection";
-import GeographySection from "../components/GeographySection";
-import TimelineSection from "../components/TimelineSection";
-import ProjectStatusSection from "../components/ProjectStatusSection";
-import MechanismSection from "../components/MechanismSection";
-import DocumentsSection from "../components/DocumentsSection";
-import SafetySection from "../components/SafetySection";
-import SocialSection from "../components/SocialSection";
-import LegalSection from "../components/LegalSection";
-import BenefitsSection from "../components/BenefitsSection";
-import PhotoGallerySection from "../components/PhotoGallerySection";
-import TestimonialsSection from "../components/TestimonialsSection";
-import FaqSection from "../components/FaqSection";
-import SalaryCalculator from "../components/SalaryCalculator";
-import NewsSection from "../components/NewsSection";
-import ObjectsMap from "../components/ObjectsMap";
 import VisitorCounter from "../components/VisitorCounter";
 import LiveChat from "../components/LiveChat";
-
-const IMAGES = {
-  hero: "https://media.base44.com/images/public/69f4a665db2c72a42818d397/4feb0c682_generated_15775d57.png",
-  map: "https://media.base44.com/images/public/69f4a665db2c72a42818d397/3e1457811_generated_20c64b59.png",
-  housing: "https://media.base44.com/images/public/69f4a665db2c72a42818d397/bd319ae39_generated_1c205c2c.png",
-  team: "https://media.base44.com/images/public/69f4a665db2c72a42818d397/81aa3f65e_generated_440986d5.png",
-  dining: "https://media.base44.com/images/public/69f4a665db2c72a42818d397/c83bd75fe_generated_ad393e13.png",
-  security: "https://media.base44.com/images/public/69f4a665db2c72a42818d397/db73de3ec_generated_098d4d00.png",
-};
 
 export default function Home() {
   const [appModalOpen, setAppModalOpen] = useState(false);
   const [callbackOpen, setCallbackOpen] = useState(false);
   const [selectedVacancy, setSelectedVacancy] = useState("");
-  const location = useLocation();
-
-  useEffect(() => {
-    if (location.state?.scrollTo) {
-      const el = document.getElementById(location.state.scrollTo);
-      if (el) setTimeout(() => el.scrollIntoView({ behavior: "smooth" }), 100);
-    }
-  }, [location.state]);
+  const [calcPosition, setCalcPosition] = useState(null);
 
   const openApplication = (vacancy) => {
     setSelectedVacancy(typeof vacancy === "string" ? vacancy : "");
     setAppModalOpen(true);
   };
 
+  const handleCalculate = (positionKey) => {
+    setCalcPosition(positionKey);
+    setTimeout(() => {
+      const el = document.getElementById("calculator");
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar onOpenApplication={() => openApplication("")} />
-      <HeroSection
-        onOpenApplication={() => openApplication("")}
-        heroImg={IMAGES.hero}
-        mapImg={IMAGES.map}
-      />
-      <AboutSection teamImg={IMAGES.team} />
+
+      {/* SECTION 1 – HERO */}
+      <HeroSection onOpenApplication={() => openApplication("")} />
+
+      {/* SECTION 2 – CALCULATOR */}
+      <SalaryCalculator preselectedPosition={calcPosition} onApply={openApplication} />
+
+      {/* SECTION 3 – VACANCIES */}
+      <VacanciesSection onApply={openApplication} onCalculate={handleCalculate} />
+
+      {/* SECTION 4 – DAY OF SPECIALIST */}
+      <DayOfSpecialist />
+
+      {/* SECTION 5 – TESTIMONIALS */}
+      <TestimonialsSection />
+
+      {/* SECTION 6 – RECOVERY OBJECTS */}
+      <RecoveryObjects />
+
+      {/* SECTION 7 – NOT MILITARY CONTRACT */}
+      <NotMilitaryContract />
+
+      {/* SECTION 8 – PROCESS (10 STEPS) */}
+      <ProcessSection />
+
+      {/* SECTION 9 – COLLECTION POINTS */}
+      <CollectionPoints />
+
+      {/* SECTION 10 – MEDICAL COMMISSION */}
+      <MedicalCommission />
+
+      {/* SECTION 11 – SAFETY (THREE LEVELS) */}
+      <SafetySection />
+
+      {/* SECTION 12 – HONEST RISKS */}
+      <HonestRisks />
+
+      {/* SECTION 13 – REST CITIES */}
+      <RestCities />
+
+      {/* SECTION 14 – BENEFITS (TWO TABLES) */}
+      <BenefitsSection />
+
+      {/* SECTION 15 – DOCUMENTS */}
+      <DocumentsSection />
+
+      {/* SECTION 16 – ABOUT COMPANY */}
+      <AboutCompany />
+
+      {/* SECTION 17 – COMPANY LEADERSHIP */}
+      <CompanyLeadership />
+
+      {/* SECTION 18 – FAQ */}
+      <FaqSection />
+
+      {/* SECTION 19 – FINAL CTA */}
+      <FinalCTA onOpenApplication={() => openApplication("")} onCallback={() => setCallbackOpen(true)} />
+
+      {/* KEEP: Project info & status */}
       <ProjectInfoSection />
       <ProjectStatusSection />
-      <GeographySection />
-      <TimelineSection />
-      <MechanismSection />
-      <VacanciesSection onApply={openApplication} />
-      <PaymentSection />
-      <ConditionsSection
-        images={{
-          security: IMAGES.security,
-          housing: IMAGES.housing,
-          dining: IMAGES.dining,
-          team: IMAGES.team,
-        }}
-      />
-      <BenefitsSection />
-      <SafetySection />
-      <SocialSection />
-      <DocumentsSection />
-      <HowToJoinSection />
-      <ObjectsMap />
-      <SalaryCalculator />
-      <NewsSection />
       <PhotoGallerySection />
-      <TestimonialsSection />
-      <FaqSection />
-      <LegalSection />
+
+      {/* CONTACTS + FOOTER */}
       <ContactsSection onCallback={() => setCallbackOpen(true)} />
       <Footer />
+
+      {/* Sticky elements */}
       <StickyCommandBar onOpenApplication={() => openApplication("")} />
       <VisitorCounter />
       <LiveChat />
 
+      {/* Modals */}
       <ApplicationModal
         open={appModalOpen}
         onClose={() => setAppModalOpen(false)}
