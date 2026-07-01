@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -27,18 +27,29 @@ const VACANCIES = [
 
 const EXPERIENCE = ["до 1 года", "1–3 года", "3+ года"];
 
-export default function ApplicationModal({ open, onClose, preselectedVacancy }) {
+export default function ApplicationModal({ open, onClose, preselectedVacancy, preselectedObject }) {
   const [form, setForm] = useState({
     full_name: "",
     phone: "",
     email: "",
     vacancy: preselectedVacancy || "",
     experience: "",
-    comment: "",
+    comment: preselectedObject ? `Интересует объект: ${preselectedObject}` : "",
     consent: false,
   });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+
+  // Sync preselected values when modal opens
+  useEffect(() => {
+    if (open) {
+      setForm((prev) => ({
+        ...prev,
+        vacancy: preselectedVacancy || "",
+        comment: preselectedObject ? `Интересует объект: ${preselectedObject}` : "",
+      }));
+    }
+  }, [open, preselectedVacancy, preselectedObject]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
