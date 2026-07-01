@@ -1,6 +1,5 @@
 import {
   Document, Packer, Paragraph, TextRun,
-  Table, TableRow, TableCell, WidthType,
   AlignmentType,
 } from 'npm:docx@8.5.0';
 
@@ -57,27 +56,20 @@ Deno.serve(async (req) => {
           }
           break;
         case 'table': {
-          const rows = [];
+          // Таблицы преобразуем в текстовый вид: заголовки и строки как параграфы
           if (block.headers) {
-            rows.push(new TableRow({
-              children: block.headers.map(h => new TableCell({
-                children: [new Paragraph({ children: [new TextRun({ text: h, bold: true, size: 20 })] })],
-                shading: { fill: 'E8E8E8' },
-              })),
+            children.push(new Paragraph({
+              children: [new TextRun({ text: block.headers.join("    |    "), bold: true, size: 22 })],
+              spacing: { before: 150, after: 80 },
             }));
           }
           for (const row of (block.rows || [])) {
             const cells = Array.isArray(row) ? row : [row];
-            rows.push(new TableRow({
-              children: cells.map(cell => new TableCell({
-                children: [new Paragraph({ children: [new TextRun({ text: String(cell), size: 20 })] })],
-              })),
+            children.push(new Paragraph({
+              children: [new TextRun({ text: cells.join("    |    "), size: 22 })],
+              spacing: { after: 50 },
             }));
           }
-          children.push(new Table({
-            rows,
-            width: { size: 100, type: WidthType.PERCENTAGE },
-          }));
           children.push(new Paragraph({ spacing: { after: 150 }, children: [] }));
           break;
         }
